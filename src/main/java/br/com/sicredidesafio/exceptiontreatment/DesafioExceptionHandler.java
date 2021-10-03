@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -22,6 +23,15 @@ public class DesafioExceptionHandler extends ResponseEntityExceptionHandler {
 
       @Autowired
       private MessageSource messageSource;
+
+      @ExceptionHandler(NegocioException.class)
+      public ResponseEntity<Object> tratamentoExecptioNegocio(NegocioException ex, WebRequest request) {
+            ErroControllers erroControllers = new ErroControllers();
+            erroControllers.status = HttpStatus.BAD_REQUEST.value();
+            erroControllers.mensagem = ex.getMessage();
+            erroControllers.dataHoraErro = LocalDateTime.now();
+            return super.handleExceptionInternal(ex, erroControllers, new HttpHeaders(),  HttpStatus.BAD_REQUEST, request);
+      }
 
       @Override
       protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
