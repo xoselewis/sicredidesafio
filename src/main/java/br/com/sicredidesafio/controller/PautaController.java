@@ -24,14 +24,14 @@ public class PautaController {
 
 
     //Requerimento solicitado no desafio
-    @PostMapping("/v1/cadastrarpautas")
+    @PostMapping("/v1/cadastrarpauta")
     @ResponseStatus(HttpStatus.CREATED)
     public Pauta cadastrar(@Valid @RequestBody Pauta pauta) {
         return pautaService.cadastrar(pauta);
     }
 
     // Requerimento Adicionais
-    @GetMapping("/v1/listarpautas")
+    @GetMapping("/v1/listarpauta")
     public List<Pauta> listar() {
         return pautaRepository.findAll();
     }
