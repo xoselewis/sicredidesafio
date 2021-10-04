@@ -24,13 +24,16 @@ public class DesafioExceptionHandler extends ResponseEntityExceptionHandler {
       @Autowired
       private MessageSource messageSource;
 
+      @ExceptionHandler(RegistroFaltanteException.class)
+      public ResponseEntity<Object> registroFaltanteException(RegistroFaltanteException ex, WebRequest request) {
+
+            return corpoTratamentoException(ex, new HttpHeaders(), HttpStatus.NOT_FOUND,  request, ex.getMessage(), null);
+      }
+
       @ExceptionHandler(NegocioException.class)
       public ResponseEntity<Object> tratamentoExecptioNegocio(NegocioException ex, WebRequest request) {
-            ErroControllers erroControllers = new ErroControllers();
-            erroControllers.status = HttpStatus.BAD_REQUEST.value();
-            erroControllers.mensagem = ex.getMessage();
-            erroControllers.dataHoraErro = LocalDateTime.now();
-            return super.handleExceptionInternal(ex, erroControllers, new HttpHeaders(),  HttpStatus.BAD_REQUEST, request);
+
+            return corpoTratamentoException(ex, new HttpHeaders(), HttpStatus.BAD_REQUEST,  request, ex.getMessage(), null);
       }
 
       @Override
@@ -48,13 +51,17 @@ public class DesafioExceptionHandler extends ResponseEntityExceptionHandler {
                   erroFields.add(new ErroFields(nome, messageSource.getMessage(erro, LocaleContextHolder.getLocale())));
             }
 
-
-            ErroControllers erroControllers = new ErroControllers();
-            erroControllers.status = status.value();
-            erroControllers.mensagem = "Campos não preenchidos, favor completar!";
-            erroControllers.dataHoraErro = LocalDateTime.now();
-            erroControllers.erroFields =  erroFields;
-
-            return super.handleExceptionInternal(ex, erroControllers, headers, status, request);
+            return corpoTratamentoException(ex, headers, status,  request, "Campos não preenchidos, favor completar!", erroFields);
       }
+
+       private  ResponseEntity<Object> corpoTratamentoException(Exception ex, HttpHeaders headers, HttpStatus status,  WebRequest request, String mensagem, List<ErroFields> erroFields) {
+             ErroControllers erroControllers = new ErroControllers();
+             erroControllers.status = status.value();
+             erroControllers.mensagem = mensagem;
+             erroControllers.dataHoraErro = LocalDateTime.now();
+             erroControllers.erroFields =  erroFields;
+
+             return super.handleExceptionInternal(ex, erroControllers, headers, status, request);
+       }
+
 }
