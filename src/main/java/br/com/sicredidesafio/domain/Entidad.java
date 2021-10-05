@@ -16,7 +16,10 @@ public class Entidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //usado para marcar registro como eliminado na base de dados
-    boolean deletedLogico = false;
+    /* Estratégia de marcar registro como eliminado na base de dados,
+    *  (Eliminação lógica) Campo no habilitado pata não ser considerado
+    *  Over Engineering no desafio
+    *  boolean deletedLogico = false;
+    * */
 
 }

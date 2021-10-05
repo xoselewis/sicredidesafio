@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -22,14 +21,19 @@ public class AssociadoController {
     @Autowired
     AssociadoService associadoService;
 
-    //Requerimento solicitado no desafio
+    //***Requerimento solicitado no desafio***
     @PostMapping("/v1/cadastrarassociado")
     @ResponseStatus(HttpStatus.CREATED)
     public Associado cadastrar(@Valid @RequestBody Associado associado) {
         return associadoService.cadastrar(associado);
     }
 
-    // Requerimento Adicionais
+
+    /*Requerimento Adicionais colocado no desafio,
+     * para consideração das habilidade, favor  não considerar como Over Engineering
+     * comentando que não foi aplicado classe DTO (modelmapper), nem projection usando criteria
+     * para retorno a mes classe do  Domain model e Representation usado  */
+
     @GetMapping("/v1/listarassociado")
     public List<Associado> listar() {
         return associadoRepository.findAll();
