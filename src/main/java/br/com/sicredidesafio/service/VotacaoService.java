@@ -31,7 +31,10 @@ public class VotacaoService {
     public Votacao cadastrar(Votacao votacao) {
         try {
 
-            if (!ObterStatusCPF.statusAssociado(votacao.getAssociado().getCpf()))
+            if (!votacao.getVoto().trim().equalsIgnoreCase("Sim") && !votacao.getVoto().trim().equalsIgnoreCase("Não"))
+                throw new NegocioException("O voto só pode ser Sim ou Não!");
+
+            if (!ObterStatusCPF.statusAssociado(associadoRepository.findById(votacao.getAssociado().getId()).get().getCpf()))
                 throw new NegocioException("Associado não pode participar da votação");
 
             Sessao sessao = sessaoRepository.findById(votacao.getSessao().getId()).orElseThrow(() -> new RegistroFaltanteException("Sessao não existe cadastrada para realizar votação!"));
@@ -56,6 +59,5 @@ public class VotacaoService {
             throw new NegocioException("Erro ao salvar o voto -> " + ex.getMessage());
         }
     }
-
 
 }

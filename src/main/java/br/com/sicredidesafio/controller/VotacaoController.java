@@ -12,25 +12,19 @@ import javax.validation.Valid;
 @RequestMapping("/votacoes")
 public class VotacaoController {
 
-
     @Autowired
     VotacaoRepository votacaoRepository;
 
     @Autowired
     VotacaoService votacaoService ;
 
-    //Requerimento solicitado no desafio
+    //***Requerimento solicitado no desafio***
     @PostMapping("/v1/cadastrarvoto")
     @ResponseStatus(HttpStatus.CREATED)
-    public Votacao cadastrar(@Valid @RequestBody Votacao votacao) {
-        return votacaoService.cadastrar(votacao);
+    public String cadastrar(@Valid @RequestBody Votacao votacao) {
+        votacaoService.cadastrar(votacao);
+        return  "Votação com Sucesso!";
     }
-
-    @GetMapping("/v1/resultadovotacao")
-    public String retonarResultadoVotacao() {
-        return "Pauta aprovada";
-    }
-
 
     /* Nota: A implementação de vários EndPoints como:
      *  -> eliminarvoto
@@ -39,6 +33,5 @@ public class VotacaoController {
      *  Entre outros que poderiam ser criados não foram incluidos para evitar Over Engineering
      * ao não ter especificações para serem criados no desafio
      */
-
 
 }
