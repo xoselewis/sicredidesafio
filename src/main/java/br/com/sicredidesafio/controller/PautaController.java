@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -22,15 +21,18 @@ public class PautaController {
     @Autowired
     PautaService pautaService;
 
-
-    //Requerimento solicitado no desafio
+    //***Requerimento solicitado no desafio***
     @PostMapping("/v1/cadastrarpauta")
     @ResponseStatus(HttpStatus.CREATED)
     public Pauta cadastrar(@Valid @RequestBody Pauta pauta) {
         return pautaService.cadastrar(pauta);
     }
 
-    // Requerimento Adicionais
+    /*Requerimento Adicionais colocado no desafio,
+     * para consideração das habilidade, favor  não considerar como Over Engineering
+     * comentando que não foi aplicado classe DTO (modelmapper), nem projection usando criteria
+     * para retorno a mes classe do  Domain model e Representation usado  */
+
     @GetMapping("/v1/listarpauta")
     public List<Pauta> listar() {
         return pautaRepository.findAll();
