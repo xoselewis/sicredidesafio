@@ -11,12 +11,11 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
-import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "sessao")
 public class Sessao extends  Entidad {
@@ -25,17 +24,10 @@ public class Sessao extends  Entidad {
     @Min(1)
     int tempoDuracao = 1;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    LocalDate dataCriacaoSessao = LocalDate.now();
-
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    LocalDate datainicioSessao;
-
     // Status true se sessão aberta
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @NotNull
-    boolean status;
+    boolean status = true;
 
     @Valid
     @ConvertGroup(to = ValidacaoGrups.ValidaIdGrups.class)
@@ -46,5 +38,13 @@ public class Sessao extends  Entidad {
 
     @OneToMany(mappedBy = "sessao", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Votacao> votos;
+
+    /* Pode ser usado se alterar logica na criação e inicio da sessão
+     * @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+     * LocalDate dataCriacaoSessao = LocalDate.now();
+     *
+     * @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+     * LocalDate datainicioSessao = LocalDate.now();
+     * */
 
 }
