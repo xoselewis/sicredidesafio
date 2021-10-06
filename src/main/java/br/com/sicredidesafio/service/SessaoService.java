@@ -79,13 +79,19 @@ public class SessaoService {
         log.info("Descricao de Pauta: " + IdentificacaoPauta + " -> " + descricaoPauta + "\n");
         log.info("Número de Votos Totais: " + quantidadeVotosSessaoTotais + " Número de Votos Sim: " + quantidadeVotosSessaoSim + " Número de Votos Não: " + quantidadeVotosSessaoNao);
 
-        envioMensagemLista("Ganharam");
+
+        String mensagem = "{numeroVotosTotais:" + quantidadeVotosSessaoTotais  + ","
+                +     " mumeroVotosSim: " + quantidadeVotosSessaoSim +    ","
+                + " numeroVotosNao: " + quantidadeVotosSessaoNao + "}";
+
+        envioMensagemLista(mensagem);
 
     }
 
     public void envioMensagemLista(String mensagemresultado) {
         try {
             resultadoVotacaoSender.send(mensagemresultado);
+            log.info("Mensagem enviada!");
         } catch (Exception exception) {
             log.info("Erro ao fechar sessão de votação \n" + exception.getMessage());
             throw new NegocioException("Erro no envio de mensagem");
