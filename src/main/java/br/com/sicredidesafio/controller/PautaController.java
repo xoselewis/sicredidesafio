@@ -3,6 +3,7 @@ package br.com.sicredidesafio.controller;
 import br.com.sicredidesafio.domain.Pauta;
 import br.com.sicredidesafio.domain.repository.PautaRepository;
 import br.com.sicredidesafio.service.PautaService;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,11 +35,13 @@ public class PautaController {
      * para retorno a mes classe do  Domain model e Representation usado  */
 
     @GetMapping("/v1/listarpauta")
+    @Hidden
     public List<Pauta> listar() {
         return pautaRepository.findAll();
     }
 
     @GetMapping("/v1/obterpauta/{IdPauta}")
+    @Hidden
     public ResponseEntity<Pauta> obter(@PathVariable Long IdPauta) {
         Optional<Pauta> optionalPauta = pautaRepository.findById(IdPauta);
 
@@ -50,6 +53,7 @@ public class PautaController {
     }
 
     @PutMapping("/v1/atualizarpauta/{IdPauta}")
+    @Hidden
     public ResponseEntity<Pauta> atualizar(@Valid @PathVariable Long IdPauta, @RequestBody Pauta pauta) {
 
         if(!pautaRepository.existsById(IdPauta)) {
@@ -63,6 +67,7 @@ public class PautaController {
 
     //elimina de forma fisica
     @DeleteMapping("/v1/eliminarpauta/{IdPauta}")
+    @Hidden
     public ResponseEntity<Void> eliminar(@PathVariable Long IdPauta) {
         if(!pautaRepository.existsById(IdPauta)) {
             return  ResponseEntity.notFound().build();

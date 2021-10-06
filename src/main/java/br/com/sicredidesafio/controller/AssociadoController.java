@@ -3,6 +3,7 @@ package br.com.sicredidesafio.controller;
 import br.com.sicredidesafio.domain.Associado;
 import br.com.sicredidesafio.domain.repository.AssociadoRepository;
 import br.com.sicredidesafio.service.AssociadoService;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class AssociadoController {
 
     //***Requerimento solicitado no desafio***
     @PostMapping("/v1/cadastrarassociado")
+    @Hidden
     @ResponseStatus(HttpStatus.CREATED)
     public Associado cadastrar(@Valid @RequestBody Associado associado) {
         return associadoService.cadastrar(associado);
@@ -35,11 +37,13 @@ public class AssociadoController {
      * para retorno a mes classe do  Domain model e Representation usado  */
 
     @GetMapping("/v1/listarassociado")
+    @Hidden
     public List<Associado> listar() {
         return associadoRepository.findAll();
     }
 
     @GetMapping("/v1/obterassociado/{IdAssociado}")
+    @Hidden
     public ResponseEntity<Associado> obter(@PathVariable Long IdAssociado) {
         Optional<Associado> optionalAssociado = associadoRepository.findById(IdAssociado);
 
@@ -51,6 +55,7 @@ public class AssociadoController {
     }
 
     @PutMapping("/v1/atualizarassociado/{IdAssociado}")
+    @Hidden
     public ResponseEntity<Associado> atualizar(@Valid @PathVariable Long IdAssociado, @RequestBody Associado associado) {
 
         if(!associadoRepository.existsById(IdAssociado)) {
@@ -64,6 +69,7 @@ public class AssociadoController {
 
     //elimina de forma fisica
     @DeleteMapping("/v1/eliminarassociado/{IdAssociado}")
+    @Hidden
     public ResponseEntity<Void> eliminar(@PathVariable Long IdAssociado) {
         if(!associadoRepository.existsById(IdAssociado)) {
             return  ResponseEntity.notFound().build();
