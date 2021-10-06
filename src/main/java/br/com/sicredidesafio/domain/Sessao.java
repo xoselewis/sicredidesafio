@@ -11,6 +11,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,7 @@ public class Sessao extends  Entidad {
 
     @Digits(message = "Número inválido",integer = 1, fraction = 0)
     @Min(1)
+    @NotNull
     int tempoDuracao = 1;
 
     // Status true se sessão aberta
@@ -36,8 +38,9 @@ public class Sessao extends  Entidad {
     @JoinColumn(name="pauta_id")
     private Pauta pauta;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(mappedBy = "sessao", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Votacao> votos;
+    private Set<Votacao> votos = new HashSet<>();
 
     /* Pode ser usado se alterar logica na criação e inicio da sessão
      * @JsonProperty(access = JsonProperty.Access.READ_ONLY)
