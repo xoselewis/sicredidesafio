@@ -84,7 +84,13 @@ public class SessaoService {
     }
 
     public void envioMensagemLista(String mensagemresultado) {
-        resultadoVotacaoSender.send(mensagemresultado);
+        try {
+            resultadoVotacaoSender.send(mensagemresultado);
+        } catch (Exception exception) {
+            log.info("Erro ao fechar sessão de votação \n" + exception.getMessage());
+            throw new NegocioException("Erro no envio de mensagem");
+        }
+
     }
 
     /*Não implementada no controlador evitando Over Engineering
