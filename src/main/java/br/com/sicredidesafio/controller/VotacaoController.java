@@ -19,7 +19,7 @@ public class VotacaoController {
     VotacaoService votacaoService ;
 
     //***Requerimento solicitado no desafio***
-    @PostMapping("/v1/cadastrarvoto")
+    @PostMapping("/v1/recebervoto")
     @ResponseStatus(HttpStatus.CREATED)
     public String cadastrar(@Valid @RequestBody Votacao votacao) {
         votacaoService.cadastrar(votacao);

@@ -23,7 +23,7 @@ public class SessaoController {
     SessaoService sessaoService;
 
     //***Requerimento solicitado no desafio***
-    @PostMapping("/v1/cadastrarsessao")
+    @PostMapping("/v1/abrirsessao")
     @ResponseStatus(HttpStatus.CREATED)
     public Sessao cadastrar(@Valid @RequestBody Sessao sessao) {
         log.info("Sessão de votação Iniciada");
