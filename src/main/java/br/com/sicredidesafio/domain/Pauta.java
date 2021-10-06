@@ -19,7 +19,9 @@ public class Pauta extends Entidad {
     @Size(max = 255)
     String descricao;
 
-    @OneToOne(mappedBy="pauta")
-    private Sessao sessaodaPauta;
+
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    @OneToOne(mappedBy="pauta")
+//    private Sessao sessaodaPauta;
 
 }
