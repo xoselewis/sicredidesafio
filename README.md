@@ -22,6 +22,6 @@ Solução Backend para gerenciar sessões de votação de pautas.
 - Receber votos de associados.
 - Contabiliza os votos e coloca o resultado via mensagem em lista a ser consumida por outros sistemas ou Api.
 
-###Adicional
+### Adicional
 - Não disponivél na documentação gerada por solicitação mas presente no código implementação de CRUD completos.
 
